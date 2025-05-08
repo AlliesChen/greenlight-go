@@ -10,6 +10,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/AlliesChen/greenlight-go/internal/data"
 	_ "github.com/lib/pq" // Postgres driver
 )
 
@@ -29,6 +30,7 @@ type config struct {
 type application struct {
 	logger *slog.Logger
 	config config
+	models data.Models
 }
 
 func main() {
@@ -59,6 +61,7 @@ func main() {
 	app := &application{
 		logger: logger,
 		config: cfg,
+		models: data.NewModels(db),
 	}
 
 	srv := &http.Server{
